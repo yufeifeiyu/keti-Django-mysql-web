@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html class="loaded">
+<head>
+    {% load staticfiles %}
+    <meta charset="utf-8">
+    <title>课题管理系统</title>
+
+    <!-- Le styles -->
+
+    <link href="../static/css/admin.css" rel="stylesheet">
+    <link href="../static/css/bootstrap.css" rel="stylesheet">
+    <link href="../static/css/My_Table_Style.css" rel="stylesheet"/>
+    <link rel="stylesheet" href={% static 'css/base.css' %}> <!--初始化文件-->
+    <link rel="stylesheet" href={% static 'css/menu.css' %}> <!--主样式-->
+
+    <script src={% static 'js/adapter.js' %}></script> <!--rem适配js-->
+
+</head>
+
+
+<body>
+
+{#<div class="container">#}
+
+<div class="parent">
+
+    <div id="menu">
+        <div id="open">
+            <div class="navH">
+                白城气象课题系统
+            </div>
+            <div class="navBox">
+                <ul>
+                    <a href="user">
+                        <li><h2 class="obtain" id="myshenpi">用户管理<i></i></h2></li>
+                    </a>
+                    <a href="project">
+                        <li><h2 class="obtain" id="myshenpi">课题管理<i></i></h2></li>
+                    </a>
+                    <a href="login">
+                        <li><h2 class="obtain" id="myshenpi">退出系统<i></i></h2></li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="span10">
+
+        <div class="secondary-masthead">
+
+
+            <ul class="breadcrumb">
+                <li>
+                    <a href="/student.html">课题论文系统</a> <span class="divider">/</span></li>
+                <li class="active">用户管理</li>
+            </ul>
+
+        </div>
+        <div>
+            <div class="secondary-masthead">
+
+
+                <form class="form-inline" method="post">
+                    <input class="span3" type="text" class="input-large" name="name" placeholder="用户名..." value="">&nbsp;
+                    <select class="span3" name="shenfen">
+                        <option value='空'> - 身份 -</option>
+                        <option value="管理员">管理员</option>
+                        <option value="课题申请者">课题申请者</option>
+                        <option value="课题审批者">课题审批者</option>
+                    </select>&nbsp;
+                    <button type="submit" class="btn btn-primary" id="search">查询</button>
+                </form>
+            </div>
+            <div class="secondary-masthead">
+                <a href="/add_user" >&nbsp;&nbsp;
+                <button class="btn btn-info">添加</button>
+            </a><br><br>
+                <table border="1" class="table table-hover table-bordered">
+                    <thead>
+                    <tr onmouseover="this.style.backgroundColor='#ffff66';"
+                        onmouseout="this.style.backgroundColor='#e5d4e3';">
+                        <th>ID</th>
+                        <th>用户名</th>
+                        <th>身份</th>
+                        <th>密码</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in user_list %}
+                        <tr onmouseover="this.style.backgroundColor='#ffff66';"
+                            onmouseout="this.style.backgroundColor='#d4e3e5';">
+                            <td>{{ row.id }}</td>
+                            <td>{{ row.name }}</td>
+                            <td>{{ row.shenfen }}</td>
+                            <td>{{ row.password }}</td>
+
+                            <td>
+                                <a href="/del_user?nid={{ row.id }}" onclick="test({{ row.id }})">删除</a>
+                                |
+                                <a href="/edit_user?nid={{ row.id }}">编辑</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div> <!-- end span10 -->
+
+
+</div> <!-- end span10 -->
+
+
+</div> <!-- main-area dashboard -->
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="../static/js/jquery.min.js"></script>
+<script>
+    function test(obj){
+        url='del_test'
+        $.get(url, {"nid":obj},function (res) {
+            res=eval('('+res+')')
+            if(res.flag=="1"){
+                alert("此人有课题，不能删除！")
+            }
+        });
+    }
+</script>
+</body>
+
+</html>

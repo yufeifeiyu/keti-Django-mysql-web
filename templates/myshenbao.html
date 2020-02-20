@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html class="loaded" xmlns="http://www.w3.org/1999/html">
+<head>
+    {% load staticfiles %}
+    <meta charset="utf-8">
+    <title>课题管理系统</title>
+
+    <!-- Le styles -->
+    <link rel="stylesheet" href="../static/css/Button.e5a3e.css">
+    <link rel="stylesheet" href="../static/css/icono.min.css">
+    <link href="../static/css/bootstrap.css" rel="stylesheet">
+    <link href="../static/css/font-awesome.css" rel="stylesheet">
+    <link href="../static/css/admin.css" rel="stylesheet">
+    <link rel="stylesheet" href={% static 'css/base.css' %}> <!--初始化文件-->
+    <link rel="stylesheet" href={% static 'css/menu.css' %}> <!--主样式-->
+
+    <script src={% static 'js/adapter.js' %}></script> <!--rem适配js-->
+    <link href="../static/css1/style.min.css" rel="stylesheet"/>
+    <link href="../static/css/My_Table_Style.css" rel="stylesheet"/>
+
+</head>
+
+<body>
+
+{#<div class="container">#}
+
+<div class="parent">
+    <div id="menu">
+        <div id="open">
+            <div class="navH">
+                白城气象课题系统
+            </div>
+            <div class="navBox">
+                <ul>
+                    <a href="shenbao">
+                        <li><h2 class="obtain" id="myshenpi">申报<i></i></h2></li>
+                    </a>
+                    <a href="myshenbao">
+                        <li><h2 class="obtain" id="myshenpi">我的申报<i></i></h2></li>
+                    </a>
+                    <a href="login">
+                        <li><h2 class="obtain" id="myshenpi">退出系统<i></i></h2></li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="span10">
+
+        <div class="secondary-masthead" id="Box1">
+
+
+            <ul class="breadcrumb">
+                <li>
+                    <a href="home">课题管理系统</a> <span class="divider">/</span></li>
+                <li class="active">我的申报</li>
+            </ul>
+        </div>
+    <div class="secondary-masthead">
+            <form class="form-inline" method="post">
+                <input class="span3" type="text" class="input-large" name="name" placeholder="课题名称..." value="">
+                <select class="span3" name="type">
+                    <option value='空'> - 类型 -</option>
+                    <option value="预报">预报</option>
+                    <option value="测报">测报</option>
+                    <option value="装备">装备</option>
+                    <option value="农气">农气</option>
+                    <option value="计算机">计算机</option>
+                    <option value="其他">其他</option>
+                </select>
+                <select class="span3" name="danwei">
+                    <option value="空"> -申请单位-</option>
+                    <option value="白城气象局">白城气象局</option>
+                    <option value="洮南气象局">洮南气象局</option>
+                    <option value="镇赉气象局">镇赉气象局</option>
+                    <option value="大安气象局">大安气象局</option>
+                    <option value="通榆气象局">通榆气象局</option>
+                </select>
+                <button type="submit" class="btn btn-primary" id="search">查询</button>
+
+            </form>
+        </div>
+        <br>
+
+        <div class="secondary-masthead" id="Box1">
+            <table class="table table-hover table-bordered" id="mytable">
+                <thead>
+                <tr onmouseover="this.style.backgroundColor='#ffff66';"
+                    onmouseout="this.style.backgroundColor='#e5d4e3';">
+                    <th>课题名称</th>
+                    <th>课题类型</th>
+                    <th>申请单位</th>
+                    <th>下载</th>
+                    <th>建议</th>
+                    <th>审核状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="listTable">
+
+                {% for row in pro_list %}
+                    <tr onmouseover="this.style.backgroundColor='#f66';"
+                        onmouseout="this.style.backgroundColor='#d4e3e5';">
+                        <td>{{ row.projec_tname }}</td>
+                        <td>{{ row.project_type }}</td>
+                        <td>{{ row.shenqing_unit }}</td>
+                        <td>
+                            <a href="download/{{ row.shenqing_ren.id }}/{{ row.project_type }}/{{ row.projec_tname }}/{{ row.project_content }}">{{ row.project_content }}</a>
+                        </td>
+                        <td><a href="#div3" onclick="codePreview(this)">点击查看</a></td>
+                        <td>{{ row.state_shenpi }}</td>
+                        <td>
+                            <a type="button" class="btn btn-danger" href="/del_shenbao/{{ row.id }}" onclick="test({{ row.id }})">删除</a>
+                            <a id ="xiu" type="button" class="btn btn-info"  href="/edit_shenbao?nid={{ row.id }} " onclick="test({{ row.id }})">修改</a>
+                        </td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+        <div class="secondary-masthead">
+            <table class="table table-hover table-bordered">
+                <tr>
+                    <th>课题名称</th>
+                    <td><input type="text" name="" class="form-control" id="num"/></td>
+                </tr>
+            </table>
+            <strong>建议：</strong><br><br>
+            <textarea id="preview" class="boxes" rows="5" class="span9" frameborder="0">
+
+            </textarea>
+            <div id="div3"></div>
+        </div>
+        {#<iframe src="http://127.0.0.1:8000/file/1/测报/23/Backburner_Install_Guide.pdf" name="kk" style="width:800px;height:600px;"/>#}
+        <!--</form>-->
+    </div> <!-- end span10 -->
+
+</div> <!-- end span10 -->
+
+
+</div> <!-- main-area dashboard -->
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+</body>
+<script src="../static/js/jquery.min.js"></script>
+<style type="text/css">
+    #Box1 {
+        height: auto;
+        width: 970px;
+    }
+
+    .boxes {
+        font-size: 18px;
+        color: #000000;
+        width: 860px;
+        border: 1px solid #96c2f1;
+        background: #eff7ff;
+    }
+</style>
+<script type="text/javascript">
+
+    function test(obj){
+        url='edit_test'
+        $.get(url, {"nid":obj},function (res) {
+            res=eval('('+res+')')
+            if(res.flag=="0"){
+                alert("项目已审核不能修改！")
+            }
+        });
+    }
+    /**
+     * 修改iframe内容
+     * @param value
+     */
+    $("#shenbao").click(function () {
+
+
+    })
+    function codePreview(obj) {
+        var oNum = document.getElementById('num');
+        var oTr = obj.parentNode.parentNode;
+        var aTd = oTr.getElementsByTagName('td');
+        rowIndex = obj.parentNode.parentNode.rowIndex;
+        oNum.value = aTd[0].innerHTML;
+        var fenlei = aTd[1].innerHTML;
+        var zhuangtai = aTd[5].innerHTML;
+        if (zhuangtai == "未审核") {
+            $("#preview").val("该课题还未审核！");
+            return
+        }
+        $.get("review",
+                {
+                    "fenlei": fenlei,
+                    "name": oNum.value
+                },
+                function (result) {
+                    result = eval("(" + result + ")");
+                    $("#preview").val(result.review);
+                });
+
+    }
+</script>
+<script src={% static 'js/menu.js' %}></script>
+</html>

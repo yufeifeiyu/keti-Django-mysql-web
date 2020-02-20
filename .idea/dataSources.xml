@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="2151710860">
+    <data-source source="LOCAL" name="Django default" uuid="80ae9687-39b8-4b6f-80fe-44494a5d2026">
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/keti/settings.py</remarks>
+      <jdbc-url>jdbc:mysql://127.0.0.1:3306/keti</jdbc-url>
+    </data-source>
+  </component>
+</project>

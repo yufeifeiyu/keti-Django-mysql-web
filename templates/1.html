@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+<div id="d1">
+    <table class="table table-hover table-bordered" id="mytable">
+        <thead>
+        <tr onmouseover="this.style.backgroundColor='#ffff66';"
+            onmouseout="this.style.backgroundColor='#e5d4e3';">
+            <th>课题名称</th>
+            <th>课题类型</th>
+            <th>申请单位</th>
+            <th>下载</th>
+            <th>审核状态</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody id="listTable">
+        <div id="d1">{% for row in pro_list %}
+            <tr onmouseover="this.style.backgroundColor='#f66';"
+                onmouseout="this.style.backgroundColor='#d4e3e5';">
+                <td>{{ row.projec_tname }}</td>
+                <td>{{ row.project_type }}</td>
+                <td>{{ row.shenqing_unit }}</td>
+                <td>
+                    <a href="download/{{ row.shenqing_ren.id }}/{{ row.project_type }}/{{ row.projec_tname }}/{{ row.project_content }}">{{ row.project_content }}</a>
+                </td>
+                <td>{{ row.state_shenpi }}</td>
+                <td>
+                    <input type="button" name="" value="审核" class="btn btn-info" onclick="modify(this)"/>
+                </td>
+
+            </tr>
+        {% endfor %}</div>
+
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
